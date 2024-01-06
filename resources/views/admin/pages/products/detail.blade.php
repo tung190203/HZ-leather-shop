@@ -63,9 +63,8 @@
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Category</label>
                                     <select name="category_id" class="form-control">
-                                        <option value="{{ $product->category->id }}">{{ $product->category->name }}</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}"{{ $category->name ? 'selected' : '' }}>{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

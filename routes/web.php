@@ -35,8 +35,8 @@ Route::middleware(['admin'])->group(function () {
         Route::prefix('user')->group(function () {
             Route::get('/', [AdminAuthController::class, 'user'])->name('admin.user');
             Route::match(['get', 'post'], 'create', [AdminAuthController::class, 'createUser'])->name('admin.user.create');
-            Route::match(['get', 'post'], 'edit/{id}', [AdminAuthController::class, 'editUser'])->name('admin.user.edit');
-            Route::get('/delete/{id}', [AdminAuthController::class, 'deleteUser'])->name('admin.user.delete');
+            Route::match(['get', 'put'], 'detail/{user}', [AdminAuthController::class, 'detailUser'])->name('admin.user.detail');
+            Route::delete('/delete/{user}', [AdminAuthController::class, 'deleteUser'])->name('admin.user.delete');
         });
         //Product
         Route::prefix('product')->group(function () {
@@ -56,6 +56,7 @@ Route::middleware(['admin'])->group(function () {
         Route::prefix('export')->group(function () {
             Route::get('/product', [ExportController::class, 'exportProduct'])->name('admin.export.product');
             Route::get('/category', [ExportController::class, 'exportCategory'])->name('admin.export.category');
+            Route::get('/user', [ExportController::class, 'exportUser'])->name('admin.export.user');
         });
         
     });

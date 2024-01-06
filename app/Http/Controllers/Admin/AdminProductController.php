@@ -57,7 +57,7 @@ class AdminProductController extends Controller
     }
     public function detailProduct(Request $request, Product $product)
     {
-        $categories = Category::whereNotIn('id', [$product->category_id])->get();
+        $categories = Category::all();
         if ($request->isMethod('put')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',

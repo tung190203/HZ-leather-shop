@@ -46,7 +46,7 @@
                 </a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
+                <a class="sidebar-link" href="{{route('admin.user')}}" aria-expanded="false">
                   <span>
                     <i class="ti ti-user"></i>
                   </span>
