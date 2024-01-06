@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-7">
@@ -7,7 +6,7 @@
                     <a href=""><img src="./assets/img/logo.png" alt="" style="max-width:40%"></a>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                cilisis.</p>
+                    cilisis.</p>
                 <div class="footer__payment">
                     <a href="#"><img src="./assets/img/payment/payment-1.png" alt=""></a>
                     <a href="#"><img src="./assets/img/payment/payment-2.png" alt=""></a>
@@ -70,19 +69,19 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
-<script src="{{asset('assets/js/jquery-3.3.1.min.js')}}"></script>
-<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/js/jquery.magnific-popup.min.js')}}"></script>
-<script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/js/mixitup.min.js')}}"></script>
-<script src="{{asset('assets/js/jquery.countdown.min.js')}}"></script>
-<script src="{{asset('assets/js/jquery.slicknav.js')}}"></script>
-<script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
-<script src="{{asset('assets/js/jquery.nicescroll.min.js')}}"></script>
-<script src="{{asset('assets/js/main.js')}}"></script>
+<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('assets/js/mixitup.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.slicknav.js') }}"></script>
+<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.nicescroll.min.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 <script>
-     $(document).ready(function(){
-        setInterval(function(){
+    $(document).ready(function() {
+        setInterval(function() {
             $("#carouselExample").carousel("next");
         }, 5000);
     });

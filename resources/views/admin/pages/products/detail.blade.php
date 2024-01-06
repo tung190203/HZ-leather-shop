@@ -10,7 +10,7 @@
                             <h5 class="card-title fw-semibold mb-0">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <h6 class="fs-5 mb-0">Add Product</h6>
+                                        <h6 class="fs-5 mb-0">Detail Category</h6>
                                     </div>
                                 </div>
                             </h5>
@@ -23,43 +23,47 @@
                                     <strong>{{ session('success') }}</strong>
                                 </div>
                             @endif
-                            <form action="{{ route('admin.product.create') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.product.detail', ['product' => $product->id]) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
-                                @method('POST')
+                                @method('PUT')
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Product Name</label>
                                     <input type="text" class="form-control" name="name" placeholder="product.etc"
-                                        value="">
+                                        value="{{ $product->name }}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Image</label> <br>
-                                    <img id="imagePreview" src="" alt="" class="mb-3">
+                                    <img id="imagePreview" src="{{ Storage::disk('minio')->url($product->images) }}"
+                                        width="150" height="150" alt="" class="mb-3 rounded">
                                     <input id="imageInput" type="file" name="images" class="form-control"
                                         accept=".jpg, .jpeg, .png" onchange="uploadImage()">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Price</label>
                                     <input type="text" min="1" name="price" class="form-control" id="numbInput"
-                                        oninput="formatNumb('#numbInput')" value="">
+                                        oninput="formatNumb('#numbInput')" value="{{ $product->price }}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Sale Price</label>
                                     <input type="text" min="1" name="sale_price" class="form-control"
-                                        id="numb1Input" oninput="formatNumb('#numb1Input')" value="">
+                                        id="numb1Input" oninput="formatNumb('#numb1Input')"
+                                        value="{{ $product->sale_price }}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Quantity</label>
                                     <input type="text" min="1" name="quantity" class="form-control"
-                                        id="numb2Input" oninput="formatNumb('#numb2Input')" value="">
+                                        id="numb2Input" oninput="formatNumb('#numb2Input')"
+                                        value="{{ $product->quantity }}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Description</label>
-                                    <textarea class="form-control p-7" name="description" id="" cols="20" rows="5"></textarea>
+                                    <textarea class="form-control p-7" name="description" id="" cols="20" rows="5">{{ $product->description }}</textarea>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Category</label>
                                     <select name="category_id" class="form-control">
-                                        <option value="">Choise categories</option>
+                                        <option value="{{ $product->category->id }}">{{ $product->category->name }}</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -69,7 +73,7 @@
                                     <div class="mt-3 mt-md-0 ms-auto">
                                         <button type="submit" class="btn btn-primary font-medium rounded-pill px-4">
                                             <div class="d-flex align-items-center">
-                                                <i class="ti ti-plus me-2 fs-4"></i>Add
+                                                <i class="ti ti-plus me-2 fs-4"></i>Update
                                             </div>
                                         </button>
                                     </div>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   @include('clients.layouts.header')
+    @include('clients.layouts.header')
 </head>
 
 <body>
@@ -10,11 +11,12 @@
         <div class="loader"></div>
     </div>
 
-  @yield('content')
-<!-- Footer Section Begin -->
-<footer class="footer">
-   @include('clients.layouts.footer')
-</footer>
-<!-- Footer Section End -->
+    @yield('content')
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        @include('clients.layouts.footer')
+    </footer>
+    <!-- Footer Section End -->
 </body>
+
 </html>

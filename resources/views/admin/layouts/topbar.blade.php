@@ -38,13 +38,13 @@
                           </div>                         
                           </div>
                             <div class="message-body">
-                                <a href="#" class="py-8 px-7 mt-8 d-flex align-items-center">
+                                <a href="{{route('client.home')}}" class="py-8 px-7 mt-8 d-flex align-items-center">
                                 <span class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
                                  <i class="ti ti-user fs-4"></i>
                                 </span>
                                 <div class="w-75 d-inline-block v-middle ps-3">
-                                  <h6 class="mb-1 fs-3 fw-semibold lh-base">My Profile</h6>
-                                  <span class="fs-2 d-block text-body-secondary">Account Settings</span>
+                                  <h6 class="mb-1 fs-3 fw-semibold lh-base">Back Client</h6>
+                                  <span class="fs-2 d-block text-body-secondary">Client Side</span>
                                 </div>
                               </a>
                               <a href="#" class="py-8 px-7 mt-8 d-flex align-items-center">

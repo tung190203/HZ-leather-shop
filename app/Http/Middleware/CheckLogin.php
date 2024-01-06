@@ -16,8 +16,12 @@ class CheckLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            // Người dùng chưa đăng nhập, chuyển họ đến trang đăng nhập
+        if (Auth::check()) {
+            $userRole = Auth::user()->role;
+            if ($userRole === 'user' || $userRole === '') {
+                return redirect()->route('admin.error');
+            }
+        } else {
             return redirect()->route('admin.login');
         }
         return $next($request);
