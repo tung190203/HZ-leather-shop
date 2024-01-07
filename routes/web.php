@@ -67,10 +67,9 @@ Route::middleware(['admin'])->group(function () {
 Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('client.login');
 Route::match(['get', 'post'], '/register', [AuthController::class, 'register'])->name('client.register');
 Route::match(['get', 'post'], '/forgot', [AuthController::class, 'forgot'])->name('client.forgot');
+Route::match(['get', 'post'], '/verify', [AuthController::class, 'verify'])->name('client.verify');
 
 Route::middleware(['auth'])->group(function () {
-
-
     Route::get('/logout', [AuthController::class, 'logout'])->name('client.logout');
     //Client Side
     Route::get('/', [ClientSideController::class, 'home'])->name('client.home');
