@@ -5,8 +5,8 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSideController;
 use App\Http\Controllers\Admin\ExportController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ClientSideController;
+use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Client\ClientSideController;
 use Illuminate\Support\Facades\Route;
 
 /*

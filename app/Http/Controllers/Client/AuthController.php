@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Mail\ForgotPassword;
 use App\Models\User;
 use Illuminate\Support\Str;
