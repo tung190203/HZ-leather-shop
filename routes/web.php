@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSideController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Client\ClientProductController;
 use App\Http\Controllers\Client\ClientSideController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,14 +69,15 @@ Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name(
 Route::match(['get', 'post'], '/register', [AuthController::class, 'register'])->name('client.register');
 Route::match(['get', 'post'], '/forgot', [AuthController::class, 'forgot'])->name('client.forgot');
 Route::match(['get', 'post'], '/verify', [AuthController::class, 'verify'])->name('client.verify');
+Route::match(['get', 'post'], '/change-password', [AuthController::class, 'changePassword'])->name('client.change.password');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('client.logout');
     //Client Side
     Route::get('/', [ClientSideController::class, 'home'])->name('client.home');
-    Route::get('/shop', [ClientSideController::class, 'shop'])->name('client.shop');
+    Route::get('/shop', [ClientProductController::class, 'shop'])->name('client.shop');
     Route::get('/cart', [ClientSideController::class, 'cart'])->name('client.cart');
     Route::get('/checkout', [ClientSideController::class, 'checkout'])->name('client.checkout');
-    Route::get('/product-detail', [ClientSideController::class, 'productDetail'])->name('client.product.detail');
+    Route::get('/product-detail', [ClientProductController::class, 'productDetail'])->name('client.product.detail');
     Route::get('/contact', [ClientSideController::class, 'contact'])->name('client.contact');
 });

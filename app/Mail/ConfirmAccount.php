@@ -9,15 +9,14 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ForgotPassword extends Mailable
+class ConfirmAccount extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public $user;
-    public $code;
+    public $user, $code;
     public function __construct($user, $code)
     {
         $this->user = $user;
@@ -30,7 +29,7 @@ class ForgotPassword extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirm the password change request - Hz-leather',
+            subject: 'Please Confirm Your Account - Hz-leather' ,
         );
     }
 
@@ -40,10 +39,9 @@ class ForgotPassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.forgotPassword',
+            view: 'emails.confirmAccount',
         );
     }
-
     /**
      * Get the attachments for the message.
      *

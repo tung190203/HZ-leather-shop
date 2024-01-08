@@ -21,7 +21,8 @@ class User extends Authenticatable
         'biography',
         'gender',
         'role',
-        'verification_code',
+        'status',
+        'code',
         'email_verified_at',
         'password',
     ];

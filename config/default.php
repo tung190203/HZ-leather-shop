@@ -4,6 +4,10 @@ return [
         'role' => [
             'admin' => 'admin',
             'user' => 'user',
+        ],
+        'status' => [
+            'verify' => 'verify',
+            'unverify' => 'unverify',
         ]
     ],
     'product' => [

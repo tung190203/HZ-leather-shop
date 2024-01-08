@@ -28,8 +28,8 @@
                         <div
                             class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-2">
                             <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-2">
-                                <h2 class="mb-1 fs-7 fw-bolder">Forgot your password?</h2>
-                                <p class="mb-7">Please enter the email address associated with your account and We will email you a link to reset your password.</p>                            
+                                <h2 class="mb-1 fs-7 fw-bolder">Change Your Password</h2>
+                                <p class="mb-7">Please create a new password to continue using.</p>                            
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
@@ -39,16 +39,18 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <form action="{{ route('client.forgot') }}" method="post">
+                                <form action="{{ route('client.change.password')}}" method="post">
                                     @csrf
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Email</label>
-                                        <input type="email" name="email" class="form-control"
-                                            aria-describedby="emailHelp">
+                                    <div class="mb-4">
+                                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control">
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Forgot Password</button>
+                                    <div class="mb-4">
+                                        <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                                        <input type="password" name="password_confirmation" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Change Password</button>
                                 </form>
-                                <a href="{{route('client.login')}}" class="btn w-100 py-8 mb-4 rounded-2" id="btlogin">Back To Login</a>
                             </div>
                         </div>
                     </div>

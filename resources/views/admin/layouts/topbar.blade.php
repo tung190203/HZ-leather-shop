@@ -23,13 +23,13 @@
                     <div class="d-flex justify-content-center">
                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{asset('admin/assets/images/profile/user-1.jpg')}}" alt="" width="35" height="35"
+                            <img src="{{asset('assets/images/profile/user-1.jpg')}}" alt="" width="35" height="35"
                                 class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                           <div class="d-flex align-items-center py-9 mx-7 border-bottom">   
                             <img
-                            src="{{asset('admin/assets/images/profile/user-1.jpg')}}" class="rounded-circle" width="80" height="80" alt=""/>
+                            src="{{asset('assets/images/profile/user-1.jpg')}}" class="rounded-circle" width="80" height="80" alt=""/>
                           <div class="ms-3">
                             <h5 class="mb-1 fs-3">{{Auth::user()->first_name}}{{Auth::user()->last_name}}</h5>
                             <p class="mb-0 d-flex align-items-center gap-2">

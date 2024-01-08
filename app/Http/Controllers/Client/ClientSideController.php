@@ -10,10 +10,7 @@ class ClientSideController extends Controller
     {
         return view('clients.pages.home');
     }
-    public function shop()
-    {
-        return view('clients.pages.shop');
-    }
+
     public function cart()
     {
         return view('clients.pages.cart');
@@ -22,10 +19,7 @@ class ClientSideController extends Controller
     {
         return view('clients.pages.checkout');
     }
-    public function productDetail()
-    {
-        return view('clients.pages.product-detail');
-    }
+
     public function contact()
     {
         return view('clients.pages.contact');
