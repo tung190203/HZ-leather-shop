@@ -43,7 +43,8 @@ class AdminAuthController extends Controller
     }
     public function user()
     {
-        $users = User::paginate(10);
+        $user = Auth::id();
+        $users = User::whereNotIn('id',[$user])->paginate(10);
         return view('admin.pages.users.user', compact('users'));
     }
     public function createUser(Request $request)

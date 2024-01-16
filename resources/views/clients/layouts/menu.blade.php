@@ -1,11 +1,16 @@
 <div class="page-wrapper">
+    <style>
+        .redercolor{
+            background-color: #ececec
+        }
+    </style>
     <header class="topbar mb-5">
-        <div class="app-header with-horizontal mb-2">
-            <nav class="navbar navbar-expand-xl container-fluid p-0 fixed-top bg-white">
+        <div class="app-header  with-horizontal mb-2" >
+            <nav  class="navbar navbar-expand-lg p-0 fixed-top bg-white">
                 <ul class="navbar-nav">
                     <li class="nav-item d-none d-xl-block">
                         <a href="{{ route('client.home') }}" class="text-nowrap nav-link">
-                            <img src="{{ asset('assets/images/logo.png') }}" class="dark-logo" width="180"
+                            <img src="{{ asset('assets/images/logo.png')}}" class="dark-logo" width="180"
                                 alt="" />
                         </a>
                     </li>
@@ -194,7 +199,7 @@
                         <i class="ti ti-dots fs-7"></i>
                     </span>
                 </a>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="collapse navbar-collapse justify-content-end "  id="navbarNav">
                     <div class="d-flex align-items-center justify-content-between px-0 px-xl-8">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center ">
                             <li class="nav-item">
@@ -312,15 +317,26 @@
                                 <div class="d-flex justify-content-center">
                                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                         data-bs-toggle="dropdown" aria-expanded="false">
+                                        @if(auth()->user()->avatar)
+                                        <img src="{{ Storage::disk('minio')->url(auth()->user()->avatar) }}"
+                                            alt="userImage" class="rounded-circle" width="40" height="40">
+                                        @else
                                         <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
                                             width="35" height="35" class="rounded-circle">
+                                        @endif
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
                                         aria-labelledby="drop2">
                                         <div class="d-flex align-items-center py-9 mx-7 border-bottom">
+                                            @if(auth()->user()->avatar)
+                                            <img src="{{ Storage::disk('minio')->url(auth()->user()->avatar) }}"
+                                            class="rounded-circle" width="80" height="80"
+                                            alt="" />
+                                            @else
                                             <img src="{{ asset('assets/images/profile/user-1.jpg') }}"
                                                 class="rounded-circle" width="80" height="80"
                                                 alt="" />
+                                            @endif
                                             <div class="ms-3">
                                                 <h5 class="mb-1 fs-3">
                                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
@@ -331,7 +347,7 @@
                                             </div>
                                         </div>
                                         <div class="message-body">
-                                            <a href="#" class="py-8 px-7 mt-8 d-flex align-items-center">
+                                            <a href="{{route('client.profile')}}" class="py-8 px-7 mt-8 d-flex align-items-center">
                                                 <span
                                                     class="d-flex align-items-center justify-content-center text-bg-primary rounded-1 p-6">
                                                     <i class="ti ti-user fs-4"></i>

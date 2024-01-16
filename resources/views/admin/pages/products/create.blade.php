@@ -23,12 +23,19 @@
                                     <strong>{{ session('success') }}</strong>
                                 </div>
                             @endif
+                            @if($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                    <strong>{{ $errors->first() }}</strong>
+                                </div>
+                            @endif
                             <form action="{{ route('admin.product.create') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Product Name</label>
-                                    <input type="text" class="form-control" name="name" placeholder="product.etc"
+                                    <input type="text" class="form-control" name="name" value="{{old('name')}}" placeholder="product.etc"
                                         value="">
                                 </div>
                                 <div class="mb-4">
@@ -38,23 +45,32 @@
                                         accept=".jpg, .jpeg, .png" onchange="uploadImage()">
                                 </div>
                                 <div class="mb-4">
+                                    <label class="form-label fw-semibold">Cover Image</label> <br>
+                                    <input  type="file" name="image[]" multiple  class="form-control"
+                                        accept=".jpg, .jpeg, .png" >
+                                </div>
+                                <div class="mb-4">
                                     <label class="form-label fw-semibold">Price</label>
                                     <input type="text" min="1" name="price" class="form-control" id="numbInput"
-                                        oninput="formatNumb('#numbInput')" value="">
+                                        oninput="formatNumb('#numbInput')" value="{{old('price')}}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Sale Price</label>
                                     <input type="text" min="1" name="sale_price" class="form-control"
-                                        id="numb1Input" oninput="formatNumb('#numb1Input')" value="">
+                                        id="numb1Input" oninput="formatNumb('#numb1Input')" value="{{old('sale_price')}}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Quantity</label>
                                     <input type="text" min="1" name="quantity" class="form-control"
-                                        id="numb2Input" oninput="formatNumb('#numb2Input')" value="">
+                                        id="numb2Input" oninput="formatNumb('#numb2Input')" value="{{old('quantity')}}">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">Color</label>
+                                    <input type="text" name="color" class="form-control" value="{{old('color')}}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Description</label>
-                                    <textarea class="form-control p-7" name="description" id="" cols="20" rows="5"></textarea>
+                                    <textarea class="form-control p-7" name="description" id="" cols="20" rows="5">{{old('description')}}</textarea>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Category</label>

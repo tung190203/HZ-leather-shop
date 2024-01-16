@@ -17,14 +17,16 @@ return new class extends Migration
             $table->string('last_name');
             $table->string("username")->unique();
             $table->string('phone')->nullable();
-            $table->unsignedBigInteger('address')->nullable();
+            $table->string('address')->nullable();
             $table->string('email')->unique();
             $table->text('biography')->nullable();
             $table->string('gender')->nullable();
+            $table->string('avatar')->nullable();
             $table->string('password');
+            $table->string('status')->nullable();
             $table->string('role')->default('user');
-            $table->string('verification_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

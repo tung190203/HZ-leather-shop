@@ -23,6 +23,13 @@
                                     <strong>{{ session('success') }}</strong>
                                 </div>
                             @endif
+                            @if($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                                <strong>{{ $errors->first() }}</strong>
+                            </div>
+                        @endif
                             <form action="{{ route('admin.product.detail', ['product' => $product->id]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -40,6 +47,17 @@
                                         accept=".jpg, .jpeg, .png" onchange="uploadImage()">
                                 </div>
                                 <div class="mb-4">
+                                    <label class="form-label fw-semibold">Cover Image</label> <br>
+                                   <div id="oldPre">
+                                    @foreach ($product->coverPhotos as $coverPhoto)
+                                    <img class=" imagePrev mb-3 rounded "  src="{{ Storage::disk('minio')->url($coverPhoto->image)}}"
+                                        width="150" height="150" alt="" >
+                                    @endforeach
+                                   </div>
+                                    <input  type="file" name="image[]" class="form-control"
+                                        accept=".jpg, .jpeg, .png" multiple onchange="previewImage(this)">
+                                </div>
+                                <div class="mb-4">
                                     <label class="form-label fw-semibold">Price</label>
                                     <input type="text" min="1" name="price" class="form-control" id="numbInput"
                                         oninput="formatNumb('#numbInput')" value="{{ $product->price }}">
@@ -55,6 +73,11 @@
                                     <input type="text" min="1" name="quantity" class="form-control"
                                         id="numb2Input" oninput="formatNumb('#numb2Input')"
                                         value="{{ $product->quantity }}">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">Color</label>
+                                    <input type="text" min="1" name="color" class="form-control"
+                                        value="{{ $product->color }}">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Description</label>

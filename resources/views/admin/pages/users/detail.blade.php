@@ -2,7 +2,7 @@
 @section('content')
     <div class="body-wrapper">
         @include('admin.layouts.topbar')
-        <div class="container-fluid">
+        <div class="container">
             <div class="row mt-3">
                 <div class="col-lg-12 ">
                     <div class="card">

@@ -4,4 +4,5 @@
 <title>Hz-Leather</title>
 <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/48x48.png') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/libs/swiper/swiper-bundle.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}" />

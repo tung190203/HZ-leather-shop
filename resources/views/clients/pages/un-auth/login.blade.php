@@ -22,17 +22,9 @@
 
                                 <p class="mb-7"></p>
                                 <div class="row">
-                                    <div class="col-6 mb-2 mb-sm-0">
+                                    <div class="col-12">
                                         <a class="btn text-dark border fw-normal d-flex align-items-center justify-content-center rounded-2 py-8"
-                                            href="javascript:void(0)" role="button">
-                                            <img src="{{ asset('assets/images/svgs/google-svg.svg') }}" alt=""
-                                                class="img-fluid me-2" width="18" height="18">
-                                            <span class="flex-shrink-0">Google</span>
-                                        </a>
-                                    </div>
-                                    <div class="col-6">
-                                        <a class="btn text-dark border fw-normal d-flex align-items-center justify-content-center rounded-2 py-8"
-                                            href="javascript:void(0)" role="button">
+                                            href="{{route('client.login.facebook')}}" role="button">
                                             <img src="{{ asset('assets/images/svgs/facebook-svg.svg') }}" alt=""
                                                 class="img-fluid me-2" width="18" height="18">
                                             <span class="flex-shrink-0">Facebook</span>
@@ -65,7 +57,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
-                                        <input type="email" name="email" class="form-control"
+                                        <input type="email" name="email" class="form-control" value="{{old('email')}}"
                                             aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-4">

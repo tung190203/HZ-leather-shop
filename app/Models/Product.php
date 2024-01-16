@@ -16,6 +16,7 @@ class Product extends Model
         "quantity",
         "description",
         "category_id",
+        "color",
         "status",
         "created_at",
         "updated_at",    
@@ -23,5 +24,9 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function coverPhotos()
+    {
+        return $this->hasMany(CoverPhoto::class);
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -144,5 +145,31 @@ class AuthController extends Controller
             }
         }
         return view('clients.pages.un-auth.change-password',);
+    }
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+    public function handleFacebookCallback()
+    {
+        try {
+            $facebookUser = Socialite::driver('facebook')->user();
+        } catch (\Exception $e) {
+            return redirect()->route('client.login')->withErrors(['error' => 'Đăng nhập bằng Facebook thất bại']);
+        }
+        $user = User::where('email', $facebookUser->getEmail())->first();
+
+        if (!$user) {
+            $fullName = explode(' ', $facebookUser->getName(), 2);
+            $user = User::create([
+                'first_name' => $fullName[0],
+                'last_name' => isset($fullName[1]) ? $fullName[1] : '',
+                'email' => $facebookUser->getEmail(),
+                'password' => bcrypt('randompassword'),
+                'status' => config('default.user.status.verify')
+            ]);
+        }
+        Auth::login($user);
+        return redirect()->route('client.home');
     }
 }

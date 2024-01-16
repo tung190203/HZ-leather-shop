@@ -4,8 +4,10 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSideController;
+use App\Http\Controllers\Admin\AdminBannerController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Client\ClientCartController;
 use App\Http\Controllers\Client\ClientProductController;
 use App\Http\Controllers\Client\ClientSideController;
 use Illuminate\Support\Facades\Route;
@@ -59,12 +61,19 @@ Route::middleware(['admin'])->group(function () {
             Route::get('/category', [ExportController::class, 'exportCategory'])->name('admin.export.category');
             Route::get('/user', [ExportController::class, 'exportUser'])->name('admin.export.user');
         });
+        Route::prefix('banner')->group(function () {
+            Route::get('/', [AdminBannerController::class, 'banner'])->name('admin.banner');
+            Route::match(['get', 'post'], 'create', [AdminBannerController::class, 'createBanner'])->name('admin.banner.create');
+            Route::match(['get', 'put'], 'detail/{banner}', [AdminBannerController::class, 'detailBanner'])->name('admin.banner.detail');
+            Route::delete('/delete/{banner}', [AdminBannerController::class, 'deleteBanner'])->name('admin.banner.delete');
+        });
         
     });
 });
-
+//social
+Route::get('/login/facebook', [AuthController::class, 'redirectToFacebook'])->name('client.login.facebook');
+Route::get('/login/facebook/callback', [AuthController::class, 'handleFacebookCallback'])->name('client.login.facebook.callback');
 //Client Side
-
 Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('client.login');
 Route::match(['get', 'post'], '/register', [AuthController::class, 'register'])->name('client.register');
 Route::match(['get', 'post'], '/forgot', [AuthController::class, 'forgot'])->name('client.forgot');
@@ -76,8 +85,14 @@ Route::middleware(['auth'])->group(function () {
     //Client Side
     Route::get('/', [ClientSideController::class, 'home'])->name('client.home');
     Route::get('/shop', [ClientProductController::class, 'shop'])->name('client.shop');
-    Route::get('/cart', [ClientSideController::class, 'cart'])->name('client.cart');
+    Route::prefix('cart')->group(function(){
+        Route::get('/', [ClientCartController::class, 'cart'])->name('client.cart');
+        Route::post('/add', [ClientCartController::class, 'addToCart'])->name('client.cart.add');
+        Route::post('/update', [ClientCartController::class, 'updateCart'])->name('client.cart.update');
+        Route::delete('/delete/{cart}', [ClientCartController::class, 'deleteCart'])->name('client.cart.delete');
+    });
     Route::get('/checkout', [ClientSideController::class, 'checkout'])->name('client.checkout');
-    Route::get('/product-detail', [ClientProductController::class, 'productDetail'])->name('client.product.detail');
+    Route::get('/product-detail/{product}', [ClientProductController::class, 'productDetail'])->name('client.product.detail');
     Route::get('/contact', [ClientSideController::class, 'contact'])->name('client.contact');
+    Route::match(['get','put'],'/profile', [ClientSideController::class, 'profile'])->name('client.profile');
 });

@@ -44,6 +44,9 @@
                                                 <h6 class="fw-semibold mb-0">Name</h6>
                                             </th>
                                             <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Image</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0">Information</h6>
                                             </th>
                                             <th class="border-bottom-0">
@@ -71,6 +74,15 @@
                                                     <span class="fw-normal">
                                                         {{ $user->username }}
                                                     </span>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    @if($user->image)
+                                                    <img src="{{ Storage::disk('minio')->url($user->image) }}"
+                                                        alt="userImage" class="rounded-circle" width="50" height="50">
+                                                    @else
+                                                    <img src="{{ asset('assets/images/profile/user-1.jpg') }}"
+                                                        alt="userImage" class="rounded-circle" width="50" height="50">
+                                                    @endif
                                                 </td>
                                                 <td class="border-bottom-0 truncate-text">
                                                    <span class="fw-semibold">Email:</span>{{ $user->email ?? 'No' }} <br>

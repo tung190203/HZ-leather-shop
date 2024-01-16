@@ -49,7 +49,7 @@
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold">Role</label>
                                     <select name="role" class="form-control">
-                                        <option value="">Chọn vai trò</option>
+                                        <option value="">Choice role</option>
                                         @foreach(config('default.user.role') as $key => $value)
                                             <option value="{{$key}}">{{$value}}</option>
                                         @endforeach

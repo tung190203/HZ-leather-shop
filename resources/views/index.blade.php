@@ -14,6 +14,7 @@
         @endif
 
         @yield('content')
+        @include('clients.layouts.footer')
     </div>
     <!--  Shopping Cart -->
     <div class="offcanvas offcanvas-end shopping-cart" tabindex="-1" id="offcanvasRight"
@@ -22,52 +23,76 @@
             <h5 class="offcanvas-title fs-5 fw-semibold" id="offcanvasRightLabel">
                 Shopping Cart
             </h5>
-            <span class="badge bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+            @php
+            $totalCart = App\Models\Cart::where('user_id', Auth::id())->where('status',config('default.cart.status.pending'))->count();
+            $carts = App\Models\Cart::where('user_id', Auth::id())->where('status',config('default.cart.status.pending'))->get();
+            @endphp
+            <span class="badge bg-primary rounded-4 px-3 py-1 lh-sm">{{$totalCart}} new</span>
         </div>
         <div class="offcanvas-body h-100 px-4 pt-0" data-simplebar>
+            @php
+            $subtotal = 0;
+            $vat = 0;
+            @endphp
+            @if(count($carts) > 0)
+            @foreach($carts as $cart)
             <ul class="mb-0">
                 <li class="pb-7">
                     <div class="d-flex align-items-center">
-                        <img src="../assets/images/products/product-3.jpg" width="95" height="75"
-                            class="rounded-1 me-9 flex-shrink-0" alt="" />
+                        <img src="{{Storage::disk('minio')->url($cart->product->images)}}" width="95" height="75"
+                            class="rounded-1 me-9 flex-shrink-0" alt=""/>
                         <div>
-                            <h6 class="mb-1">Supreme toys cooker</h6>
-                            <p class="mb-0 text-muted fs-2">Kitchenware Item</p>
+                            <h6 class="mb-1" style="max-width:95%; overflow: hidden; text-overflow: ellipsis;  white-space: nowrap;">{{$cart->product->name}}</h6>
+                            <p class="mb-0 text-muted fs-2">{{$cart->product->category->name}}</p>
                             <div class="d-flex align-items-center justify-content-between mt-2">
-                                <h6 class="fs-2 fw-semibold mb-0 text-muted">$250</h6>
-                                <div class="input-group input-group-sm w-50">
-                                    <button class="btn border-0 round-20 minus p-0 bg-success-subtle text-success"
-                                        type="button" id="add3">
-                                        -
-                                    </button>
-                                    <input type="text"
-                                        class="form-control round-20 bg-transparent text-muted fs-2 border-0 text-center qty"
-                                        placeholder="" aria-label="Example text with button addon"
-                                        aria-describedby="add3" value="1" />
-                                    <button class="btn text-success bg-success-subtle p-0 round-20 border-0 add"
-                                        type="button" id="addon3">
-                                        +
-                                    </button>
-                                </div>
+                                <h6 class="fs-2 fw-semibold mb-0 text-muted">
+                                    @if($cart->product->sale_price == null)
+                                    {{$cart->product->price}} VND (X{{$cart->quantity}}) 
+                                    @else
+                                    {{$cart->product->sale_price}} VND (X{{$cart->quantity}}) 
+                                    @endif
+                                </h6>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
+            @php
+            $subtotal += intVal(str_replace('.','', $cart->total));
+            
+            @endphp
+            @endforeach
+            @php
+            $vat = $subtotal * 0.1;
+            @endphp
+            @else
+            <div class="d-flex align-items-center justify-content-center mb-4">
+                <h6 class="fs-2 fw-semibold mb-0 text-muted">No product in cart</h6>
+            </div>
+            @endif
             <div class="align-bottom">
-                <div class="d-flex align-items-center pb-7">
+                <div class="d-flex align-items-center pb-7 border-top pt-5">
                     <span class="text-dark fs-3">Sub Total</span>
                     <div class="ms-auto">
-                        <span class="text-dark fw-semibold fs-3">$2530</span>
+                        <span class="text-dark fw-semibold fs-3">{{$subtotal}} VND</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center pb-7">
+                    <span class="text-dark fs-3">VAT <span class="fs-2">(10%)</span></span>
+                    <div class="ms-auto">
+                        <span class="text-dark fw-semibold fs-3">{{$vat}} VND</span>
                     </div>
                 </div>
                 <div class="d-flex align-items-center pb-7">
                     <span class="text-dark fs-3">Total</span>
                     <div class="ms-auto">
-                        <span class="text-dark fw-semibold fs-3">$6830</span>
+                        <span class="text-dark fw-semibold fs-3">{{$subtotal + $vat}} VND</span>
                     </div>
                 </div>
-                <a href="../horizontal/eco-checkout.html" class="btn btn-outline-primary w-100">Go to shopping
+            </div>
+            
+            <div class="align-bottom">
+                <a href="{{route('client.cart')}}" class="btn btn-outline-primary w-100">Go to shopping
                     cart</a>
             </div>
         </div>
@@ -97,7 +122,7 @@
         </div>
     </div>
     </div>
-    @include('clients.layouts.footer')
+    
 </body>
 
 </html>

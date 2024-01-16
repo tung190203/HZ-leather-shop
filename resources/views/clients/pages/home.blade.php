@@ -1,253 +1,265 @@
 @extends('index')
 @section('content')
-<div class="body-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 d-flex align-items-strech">
-                <div class="card w-100">
-                    <div class="card-body">
-                        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-                            <div class="mb-3 mb-sm-0">
-                                <h5 class="card-title fw-semibold">Revenue Updates</h5>
-                                <p class="card-subtitle mb-0">Overview of Profit</p>
+    <div class="body-wrapper">
+        <div class="container ">
+            <div class="row mb-4">
+                <div id="carouselExampleControls" class="carousel slide carousel-dark w-100" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded"
+                        style="margin-top:5vh; box-shadow:0 0 5px rgba(13, 12, 12, 0.295); width:100%">
+                        @foreach ($banners as $banner)
+                            <div class="carousel-item active">
+                                <img src="{{ Storage::disk('minio')->url($banner->image) }}" class="d-block w-100 "
+                                    alt="bannerImage" />
                             </div>
-                            <select class="form-select w-auto">
-                                <option value="1">March 2023</option>
-                                <option value="2">April 2023</option>
-                                <option value="3">May 2023</option>
-                                <option value="4">June 2023</option>
-                            </select>
-                        </div>
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <div id="chart"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="hstack mb-4 pb-1">
-                                    <div
-                                        class="p-8 bg-primary-subtle rounded-1 me-3 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-grid-dots text-primary fs-6"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="mb-0 fs-7 fw-semibold">$63,489.50</h4>
-                                        <p class="fs-3 mb-0">Total Earnings</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="d-flex align-items-baseline mb-4">
-                                        <span class="round-8 text-bg-primary rounded-circle me-6"></span>
-                                        <div>
-                                            <p class="fs-3 mb-1">Earnings this month</p>
-                                            <h6 class="fs-5 fw-semibold mb-0">$48,820</h6>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-baseline mb-4 pb-1">
-                                        <span class="round-8 text-bg-secondary rounded-circle me-6"></span>
-                                        <div>
-                                            <p class="fs-3 mb-1">Expense this month</p>
-                                            <h6 class="fs-5 fw-semibold mb-0">$26,498</h6>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button class="btn btn-primary w-100">
-                                            View Full Report
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
+                    <a class="carousel-control-prev align-items-middle" href="#carouselExampleControls" role="button"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <!-- Employee Salary -->
-            <div class="col-lg-4 d-flex align-items-strech">
-                <div class="card w-100">
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title fw-semibold mb-1">
-                                Employee Salary
-                            </h5>
-                            <p class="card-subtitle mb-0">Every month</p>
-                            <div id="salary" class="mb-7 pb-8"></div>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <div
-                                        class="bg-primary-subtle rounded me-8 p-8 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-grid-dots text-primary fs-6"></i>
-                                    </div>
-                                    <div>
-                                        <p class="fs-3 mb-0 fw-normal">Salary</p>
-                                        <h6 class="fw-semibold text-dark fs-4 mb-0">
-                                            $36,358
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <div
-                                        class="text-bg-light rounded me-8 p-8 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-grid-dots text-muted fs-6"></i>
-                                    </div>
-                                    <div>
-                                        <p class="fs-3 mb-0 fw-normal">Profit</p>
-                                        <h6 class="fw-semibold text-dark fs-4 mb-0">
-                                            $5,296
-                                        </h6>
-                                    </div>
+            <div class="row justify-content-between">
+                <h1 class="text-center mt-4 mb-4"
+                    style="font-size: 70px;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+                    Shop Top Collections</h1>
+                @foreach ($sliders as $banner)
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <img src="{{ Storage::disk('minio')->url($banner->image) }}" height="306" class="d-block rounded w-100"
+                                    alt="bannerImage" />
+                            </div>
+                        </div>                   
+                @endforeach
+                    <div class="col-lg-6">
+                        <div class="card" style="background-color: #ececec">
+                            <div class="card-body ">
+                                <div style="width:100%;aspect-ratio:1/1;text-align:center;background-color:#ececec" class="d-flex flex-column align-items-center justify-content-center">
+                                    <h4>Satisfy enthusiasts</h4>
+                                    <h1>Customize your accessories</h1>
+                                    <a href="{{ route('client.shop') }}"><input type="button"
+                                            class="btn btn-dark text-white" value="Shop Now"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Project -->
-            <div class="col-lg-4">
-                <div class="row">
-                    <!-- Customers -->
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body pb-0 mb-xxl-4 pb-1">
-                                <p class="mb-1 fs-3">Customers</p>
-                                <h4 class="fw-semibold fs-7">36,358</h4>
-                                <div class="d-flex align-items-center mb-3">
-                                    <span
-                                        class="me-2 rounded-circle bg-danger-subtle round-20 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-arrow-down-right text-danger"></i>
-                                    </span>
-                                    <p class="text-dark fs-3 mb-0">+9%</p>
-                                </div>
+                    <div class="col-lg-6">
+                        <div id="carouselExampleControls1" class="carousel slide carousel-dark w-100"
+                            data-bs-ride="carousel">
+                            <div class="carousel-inner rounded"
+                                style=" box-shadow:0 0 5px rgba(13, 12, 12, 0.295); width:100%">
+                                @foreach ($posters as $key => $poster)
+                                @if($key < 3)
+                                    <div class="carousel-item active">
+                                        <img src="{{ Storage::disk('minio')->url($poster->image) }}"
+                                            class="d-block mx-auto rounded" style="width: 100%; aspect-ratio: 1/1;"
+                                            alt="bannerImage" />
+                                    </div>
+                                  @else
+                                  @php
+                                    $remainingPosters[] = $poster;
+                                  @endphp
+                                  @endif
+                                @endforeach
                             </div>
-                            <div id="customers"></div>
-                        </div>
-                    </div>
-                    <!-- Projects -->
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="mb-1 fs-3">Projects</p>
-                                <h4 class="fw-semibold fs-7">78,298</h4>
-                                <div class="d-flex align-items-center mb-3">
-                                    <span
-                                        class="me-1 rounded-circle bg-success-subtle round-20 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-arrow-up-left text-success"></i>
-                                    </span>
-                                    <p class="text-dark fs-3 mb-0">+9%</p>
-                                </div>
-                                <div id="projects"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Comming Soon -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-7 pb-2">
-                            <div class="me-3 pe-1">
-                                <img src="../assets/images/profile/user-1.jpg"
-                                    class="shadow-warning rounded-2" alt="" width="72"
-                                    height="72" />
-                            </div>
-                            <div>
-                                <h5 class="fw-semibold fs-5 mb-2">
-                                    Super awesome, Vue coming soon!
-                                </h5>
-                                <p class="fs-3 mb-0">22 March, 2023</p>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <ul class="hstack mb-0">
-                                <li class="ms-n8">
-                                    <a href="javascript:void(0)" class="me-1">
-                                        <img src="../assets/images/profile/user-2.jpg"
-                                            class="rounded-circle border border-2 border-white" width="44"
-                                            height="44" alt="" />
-                                    </a>
-                                </li>
-                                <li class="ms-n8">
-                                    <a href="javascript:void(0)" class="me-1">
-                                        <img src="../assets/images/profile/user-3.jpg"
-                                            class="rounded-circle border border-2 border-white" width="44"
-                                            height="44" alt="" />
-                                    </a>
-                                </li>
-                                <li class="ms-n8">
-                                    <a href="javascript:void(0)" class="me-1">
-                                        <img src="../assets/images/profile/user-4.jpg"
-                                            class="rounded-circle border border-2 border-white" width="44"
-                                            height="44" alt="" />
-                                    </a>
-                                </li>
-                                <li class="ms-n8">
-                                    <a href="javascript:void(0)" class="me-1">
-                                        <img src="../assets/images/profile/user-5.jpg"
-                                            class="rounded-circle border border-2 border-white" width="44"
-                                            height="44" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-                            <a href="#"
-                                class="text-bg-light rounded py-1 px-8 d-flex align-items-center text-decoration-none">
-                                <i class="ti ti-message-2 fs-6 text-primary"></i>
+                            <a class="carousel-control-prev align-items-middle" href="#carouselExampleControls1"
+                                role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls1" role="button"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
                             </a>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                      <div id="carouselExampleControls2" class="carousel slide carousel-dark w-100"
+                          data-bs-ride="carousel">
+                          <div class="carousel-inner rounded"
+                              style=" box-shadow:0 0 5px rgba(13, 12, 12, 0.295); width:100%">
+                              @if(isset($remainingPosters) && count($remainingPosters) > 0)
+                              @foreach ($remainingPosters as $poster)
+                                  <div class="carousel-item active">
+                                      <img src="{{ Storage::disk('minio')->url($poster->image) }}"
+                                          class="d-block mx-auto rounded" style="width: 100%; aspect-ratio: 1/1;"
+                                          alt="bannerImage" />
+                                  </div>
+                                @endforeach
+                              @endif
+                          </div>
+                          <a class="carousel-control-prev align-items-middle" href="#carouselExampleControls2"
+                              role="button" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                          </a>
+                          <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
+                              data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                          </a>
+                      </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body ">
+                            <div style="width:100%;aspect-ratio:1/1;text-align:center" class="d-flex flex-column align-items-center justify-content-center">
+                                <h4>Satisfy enthusiasts</h4>
+                                <h1>Customize your accessories</h1>
+                                <a href="{{ route('client.shop') }}"><input type="button"
+                                        class="btn btn-dark text-white" value="Shop Now"></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Selling Products -->
-            <div class="col-lg-4 d-flex align-items-strech">
-                <div class="card text-bg-primary border-0 w-100">
-                    <div class="card-body pb-0">
-                        <h5 class="fw-semibold mb-1 text-white card-title">
-                            Best Selling Products
-                        </h5>
-                        <p class="fs-3 mb-3 text-white">Overview 2023</p>
-                        <div class="text-center mt-3">
-                            <img src="../assets/images/backgrounds/piggy.png" class="img-fluid"
-                                alt="" />
-                        </div>
+            <div class="row">
+              <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card">
+                  <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                      <div style="border-bottom:2px solid black">
+                        <h5 class="card-title  fw-semibold">Best Seller</h5>                    
+                      </div>
                     </div>
-                    <div class="card mx-2 mb-2 mt-n2">
-                        <div class="card-body">
-                            <div class="mb-7 pb-1">
-                                <div class="d-flex justify-content-between align-items-center mb-6">
-                                    <div>
-                                        <h6 class="mb-1 fs-4 fw-semibold">MaterialPro</h6>
-                                        <p class="fs-3 mb-0">$23,568</p>
-                                    </div>
-                                    <div>
-                                        <span
-                                            class="badge bg-primary-subtle text-primary fw-semibold fs-3">55%</span>
-                                    </div>
-                                </div>
-                                <div class="progress bg-primary-subtle" style="height: 4px">
-                                    <div class="progress-bar w-50" role="progressbar" aria-valuenow="75"
-                                        aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
+                    <div class="overflow-auto card mt-4 mb-0 shadow-none " style="height: 450px" data-simplebar>
+                      <div class="hstack p-3 bg-hover-light-black position-relative">
+                        <img src="../assets/images/music/album1.jpg" alt="top-1" width="60" height="60" class="rounded ms-3" />
+                        <div class="ms-3">
+                          <h6 class="mb-0">N95</h6>
+                          <span class="fs-3">Kendrick Lamar</span>
+                        </div>
+                        <div class="ms-auto">
+                          <a class="" href="javascript:void(0)">
+                            <i class="ti ti-shopping-cart text-primary fs-5"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card">
+                  <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                      <div style="border-bottom:2px solid black">
+                        <h5 class="card-title  fw-semibold">Promotion</h5>                    
+                      </div>
+                    </div>
+                    <div class="overflow-auto card mt-4 mb-0 shadow-none " style="height: 450px" data-simplebar>
+                      @foreach ($promotions as $promotion)
+                      <div class="hstack p-3 bg-hover-light-black position-relative">
+                        <img src="{{Storage::disk('minio')->url($promotion->images)}}" alt="top-1" width="60" height="60" class="rounded ms-3" />
+                        <div class="ms-3">
+                          <h6 class="mb-0">{{$promotion->name}}</h6>
+                          <span class="fs-3">{{$promotion->price}}</span>
+                        </div>
+                        <div class="ms-auto">
+                          <a  href="">
+                            <i class="ti ti-shopping-cart text-primary fs-5"></i>
+                          </a>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <div class="col-md-12 col-lg-4 col-xl-4">
+                <div class="card">
+                  <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                      <div style="border-bottom:2px solid black">
+                        <h5 class="card-title  fw-semibold">New Product</h5>                    
+                      </div>
+                    </div>
+                    <div class="overflow-auto card mt-4 mb-0 shadow-none " style="height: 450px" data-simplebar>
+                      @foreach ($newProducts as $newProduct)
+                      <div class="hstack p-3 bg-hover-light-black position-relative">
+                        <img src="{{Storage::disk('minio')->url($newProduct->images)}}" alt="top-1" width="60" height="60" class="rounded ms-3" />
+                        <div class="ms-3">
+                          <h6 class="mb-0">{{$newProduct->name}}</h6>
+                          <span class="fs-3">{{$newProduct->price}}</span>
+                        </div>
+                        <div class="ms-auto">
+                          <a class="" href="">
+                            <i class="ti ti-shopping-cart text-primary fs-5"></i>
+                          </a>
+                        </div>
+                      </div>
+                     @endforeach
+                    </div>
+                  </div>
+                </div> 
+              </div>
+             
+            </div>
+            
+            {{-- service --}}
+            <div class="row">
+                <div class="col-sm-6 col-6 col-lg-6 col-xl-3">
+                    <div class="card">
+                        <div class="row card-body pt-3 p-4">
+                            <div class="col-xl-3 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-car text-danger" style="font-size: 70px"></i>
                             </div>
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-6">
-                                    <div>
-                                        <h6 class="mb-1 fs-4 fw-semibold">Flexy Admin</h6>
-                                        <p class="fs-3 mb-0">$23,568</p>
-                                    </div>
-                                    <div>
-                                        <span
-                                            class="badge bg-secondary-subtle text-secondary fw-bold fs-3">20%</span>
-                                    </div>
-                                </div>
-                                <div class="progress bg-secondary-subtle" style="height: 4px">
-                                    <div class="progress-bar text-bg-secondary w-25" role="progressbar"
-                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
+                            <div class="col-xl-9">
+                                <h6 class="mt-4">Free Shipping</h6>
+                                <p>Free shipping for orders over 500.000K</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-6 col-6 col-lg-6 col-xl-3">
+                    <div class="card">
+                        <div class="row card-body pt-3 p-4">
+                            <div class="col-xl-3 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-refresh text-danger" style="font-size: 70px"></i>
+                            </div>
+                            <div class="col-xl-9">
+                                <h6 class="mt-4">Flexible Return Policy</h6>
+                                <p>Satisfying Returns for Customers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-6 col-lg-6 col-xl-3">
+                    <div class="card">
+                        <div class="row card-body pt-3 p-4">
+                            <div class="col-xl-3 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-gift text-danger" style="font-size: 70px"></i>
+                            </div>
+                            <div class="col-xl-9">
+                                <h6 class="mt-4">Free Gift</h6>
+                                <p>Discover Freebies with every purchase</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-6 col-lg-6 col-xl-3">
+                    <div class="card">
+                        <div class="row card-body pt-3 p-4">
+                            <div class="col-xl-3 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-headphones text-danger" style="font-size: 70px"></i>
+                            </div>
+                            <div class="col-xl-9">
+                                <h6 class="mt-4">Support 24/7</h6>
+                                <p>Always Here, Anytime You Need</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
             </div>
         </div>
     </div>
-</div>
 @endsection

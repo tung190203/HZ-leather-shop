@@ -1,4 +1,4 @@
-//Admin
+//Admin ***add product***
 function uploadImage() {
     var input = document.querySelector('#imageInput');
     var preview = document.querySelector('#imagePreview');
@@ -6,7 +6,7 @@ function uploadImage() {
     var file = input.files[0];
     var reader = new FileReader();
 
-    reader.onload = function() {
+    reader.onload = function () {
         preview.src = reader.result;
     };
     if (file) {
@@ -18,42 +18,40 @@ function uploadImage() {
     }
 }
 function formatNumb(inputId) {
-   let inputValue = document.querySelector(inputId).value;
-   // Loại bỏ các ký tự không phải là số
-   inputValue = inputValue.replace(/[^\d]/g, '');
-   inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-   document.querySelector(inputId).value = inputValue;
+    let inputValue = document.querySelector(inputId).value;
+    inputValue = inputValue.replace(/[^\d]/g, '');
+    inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    document.querySelector(inputId).value = inputValue;
 }
-function deleteItem(endpoint,itemId) {
-   if (confirm('Are you sure you want to delete this ?')) {
-       fetch(`/admin/${endpoint}/delete/${itemId}`, {
-           method: 'DELETE',
-           headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-           },
-       })
-       .then(response => {
-           if (!response.ok) {
-               throw new Error('Network response was not ok');
-           }
-           window.location.reload(); 
-       })
-       .catch(error => console.error('There was a problem with the fetch operation:', error));
-   }
+function deleteItem(endpoint, itemId) {
+    if (confirm('Are you sure you want to delete this ?')) {
+        fetch(`/admin/${endpoint}/delete/${itemId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                window.location.reload();
+            })
+            .catch(error => console.error('There was a problem with the fetch operation:', error));
+    }
 }
 //Client
-//verify email
+//verify email ***verify***
 let inputs = document.querySelectorAll('.verified');
 let submitBtn = document.querySelector('#submitBtn');
 
 inputs.forEach((input, index) => {
     input.addEventListener('input', (e) => {
-        // Chỉ giữ lại ký tự số
         let inputValue = e.target.value.replace(/[^0-9]/g, '');
         e.target.value = inputValue;
-        if(isAllInputsFilled()){
+        if (isAllInputsFilled()) {
             submitBtn.disabled = false;
-        }else{
+        } else {
             submitBtn.disabled = true;
         }
     });
@@ -66,10 +64,112 @@ inputs.forEach((input, index) => {
     });
 });
 function isAllInputsFilled() {
-    // Kiểm tra xem tất cả các ô đều có giá trị hay không
     return Array.from(inputs).every(input => input.value.trim() !== '');
 }
+//change image ***product detail***
+var currentIndex = 0;
+var firstImageSrc = document.getElementById('sync2').querySelector('img').src;
+changeImage(firstImageSrc);
+function changeImage(src) {
+    document.getElementById('mainImage').src = src;
+    clearInterval(autoChange);
+    //nếu muốn auto chuyển ảnh thì bỏ comment dòng dưới
+    //  autoChange = setInterval(autoChangeImage, 5000);
+}
+function autoChangeImage() {
+    currentIndex = (currentIndex + 1) % 4;
+    var autoChangeSrc = document.getElementById('sync2').querySelectorAll('img')[currentIndex].src;
+    changeImage(autoChangeSrc);
+}
+var autoChange = setInterval(autoChangeImage, 5000);
+// update profile ***profile***
+function ChangeImage() {
+    var input = document.getElementById('imageChange');
+    var imagePre = document.getElementById('imagePre');
+    var upContent = document.getElementById('uploadContent');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
+        reader.onload = function (e) {
+            imagePre.src = e.target.result;
+        };
+        upContent.innerHTML = "Here is your new avatar";
+        reader.readAsDataURL(input.files[0]);
+    } else {
 
+    }
+}
+//update product ***product detail***
+function previewImage(input) {
+    var imagePreviews = document.getElementById('oldPre');
+    imagePreviews.innerHTML = '';
+    for (var i = 0; i < input.files.length; i++) {
+        var reader = new FileReader();
+        var img = document.createElement('img');
+        (function (currentImg) {
+            reader.onload = function (e) {
+                currentImg.src = e.target.result;
+                currentImg.width = 150;
+                currentImg.height = 150;
+                currentImg.className = 'imagePrev mb-3 m-1 rounded';
+                imagePreviews.appendChild(currentImg);
+            };
+        })(img);
+        reader.readAsDataURL(input.files[i]);
+    }
+}
+var mySwiper = new Swiper('#sync2', {
+    slidesPerView: 4,
+    spaceBetween: 10,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+});
+//pick color ***product detail***
+document.addEventListener("DOMContentLoaded", function() {
+    const renColor = document.querySelectorAll('#renColor');
+    let colorSelected = document.querySelector('#colorPicker');
+    renColor.forEach(function(option) {
+        option.addEventListener('click', function() {
+            const selectedColor = option.getAttribute('data-color');
+            renColor.forEach(function(otherOption) {
+                otherOption.classList.remove('selected');
+                otherOption.style.border = 'none';
+            });
+            option.classList.add('selected');
+            option.style.border = '1px solid #000';
+            colorSelected.value = selectedColor;
+            console.log(selectedColor);
+        });
+    });
+});
+//truncate text ***product detail***
+const truncateText  = document.querySelector('.truncateText');
+const text = document.querySelector('#toggleButton');
+text.addEventListener('click', function() {
+    if (text.innerHTML === 'Read more') {
+        text.innerHTML = 'Read less';
+        truncateText.classList.remove('truncateText');
+    } else {
+        text.innerHTML = 'Read more';
+        truncateText.classList.add('truncateText');
+    }
+});
+function AddCart(){
+    fetch(`/cart/add`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            window.location.reload();
+        })
+        .catch(error => console.error('There was a problem with the fetch operation:', error));
+}
 
 

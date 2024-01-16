@@ -21,7 +21,7 @@
                                 <div class="alert alert-success alert-dismissible fade show">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
-                                    <strong>Success! Add category successfully</strong> {{ session('success') }}
+                                    <strong>{{ session('success') }}</strong> 
                                 </div>
                             @endif
                             <form action="{{ route('admin.category.create') }}" method="POST">
