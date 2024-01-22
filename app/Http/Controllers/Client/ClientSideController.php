@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,7 +85,8 @@ class ClientSideController extends Controller
     }
     public function checkout()
     {
-        return view('clients.pages.checkout');
+       $carts = Cart::where('user_id',Auth::id())->where('status',config('default.cart.status.pending'))->get();
+        return view('clients.pages.checkout',compact('carts'));
     }
 
     public function contact()

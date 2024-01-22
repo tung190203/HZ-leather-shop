@@ -84,7 +84,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('client.logout');
     //Client Side
     Route::get('/', [ClientSideController::class, 'home'])->name('client.home');
-    Route::get('/shop', [ClientProductController::class, 'shop'])->name('client.shop');
+    Route::prefix('shop')->group(function () {
+        Route::get('/', [ClientProductController::class, 'shop'])->name('client.shop');
+        Route::get('/search', [ClientProductController::class, 'search'])->name('client.shop.search');
+        Route::get('/filter/{item}', [ClientProductController::class, 'filter'])->name('client.shop.filter');
+    });
     Route::prefix('cart')->group(function(){
         Route::get('/', [ClientCartController::class, 'cart'])->name('client.cart');
         Route::post('/add', [ClientCartController::class, 'addToCart'])->name('client.cart.add');

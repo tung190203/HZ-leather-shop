@@ -23,8 +23,7 @@ return [
     'cart' => [
         'status' => [
             'pending' => 'pending',
-            'success' => 'success',
-            'cancel' => 'cancel',
+            'active' => 'active',
         ]
     ],
     'banners' => [

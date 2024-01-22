@@ -21,11 +21,23 @@ class ClientCartController extends Controller
         $salePrice = $request->input('sale_price') ?? $request->input('price');
         $priceWithoutComma = str_replace('.', '', $salePrice);
         $priceAsNumber = intval($priceWithoutComma);
-        $subtotal = $request->input('quantity') * $priceAsNumber;
+        $subtotal = ($request->input('quantity') * $priceAsNumber);
         $total = number_format($subtotal, 0, ',', '.');
         if (Auth::check()) {
             try {
                 DB::beginTransaction();
+                $existingCartItem = Cart::where('user_id', Auth::id())
+                ->where('product_id', $request->input('product_id'))
+                ->where('color', $request->input('color'))
+                ->first();
+                if($existingCartItem) {
+                    $existingCartItem->update([
+                        'quantity' => $existingCartItem->quantity + $request->input('quantity'),
+                        'total' => intVal(str_replace('.','',$existingCartItem->total)) + $subtotal,
+                    ]);
+                    DB::commit();
+                    return redirect()->back()->with('success', 'Product added to cart successfully');
+                }
                 $cart = Cart::create([
                     'user_id' => Auth::id(),
                     'product_id' => $request->input('product_id'),
@@ -48,11 +60,6 @@ class ClientCartController extends Controller
         } else {
             return redirect()->route('login')->with('error', 'Please log in to add products to your cart');
         }
-    }
-    public function cart()
-    {
-        $carts = Cart::where('user_id', Auth::id())->where('status', config('default.cart.status.pending'))->paginate(5);
-        return view('clients.pages.cart', compact('carts'));
     }
     public function deleteCart(Cart $cart)
     {

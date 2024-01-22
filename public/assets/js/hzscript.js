@@ -127,13 +127,13 @@ var mySwiper = new Swiper('#sync2', {
     },
 });
 //pick color ***product detail***
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const renColor = document.querySelectorAll('#renColor');
     let colorSelected = document.querySelector('#colorPicker');
-    renColor.forEach(function(option) {
-        option.addEventListener('click', function() {
+    renColor.forEach(function (option) {
+        option.addEventListener('click', function () {
             const selectedColor = option.getAttribute('data-color');
-            renColor.forEach(function(otherOption) {
+            renColor.forEach(function (otherOption) {
                 otherOption.classList.remove('selected');
                 otherOption.style.border = 'none';
             });
@@ -145,9 +145,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 //truncate text ***product detail***
-const truncateText  = document.querySelector('.truncateText');
+const truncateText = document.querySelector('.truncateText');
 const text = document.querySelector('#toggleButton');
-text.addEventListener('click', function() {
+text.addEventListener('click', function () {
     if (text.innerHTML === 'Read more') {
         text.innerHTML = 'Read less';
         truncateText.classList.remove('truncateText');
@@ -156,20 +156,26 @@ text.addEventListener('click', function() {
         truncateText.classList.add('truncateText');
     }
 });
-function AddCart(){
-    fetch(`/cart/add`, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            window.location.reload();
-        })
-        .catch(error => console.error('There was a problem with the fetch operation:', error));
+// convert number to string ***cart***
+function convertNumberToStringWithDot(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
-
-
+function convertAndDisplayValue(elementId, number) {
+    var convertedValue = convertNumberToStringWithDot(number);
+    document.getElementById(elementId).textContent = convertedValue + ' VND';
+}
+//filter price ***shop***
+var timeoutId;
+function updatePriceDisplay(value, elementId, filterFormId) {
+    var element = document.getElementById(elementId);
+    var filterForm = document.getElementById(filterFormId);
+    var formattedPrice = formatValue(value) + " VND";
+    element.innerHTML = formattedPrice;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(function () {
+        filterForm.submit();
+    }, 1000);
+}
+function formatValue(value) {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}

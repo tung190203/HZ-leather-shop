@@ -250,11 +250,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="reviewTitle" class="form-label">Review Title</label>
-                                                    <input type="text" class="form-control" id="reviewTitle"
-                                                        placeholder="Enter a title for your review">
-                                                </div>
-                                                <div class="mb-3">
                                                     <label for="reviewText" class="form-label">Your Review</label>
                                                     <textarea class="form-control" id="reviewText" rows="5" placeholder="Write your review"></textarea>
                                                 </div>
@@ -277,6 +272,11 @@
                                                             class="p-2 text-bg-light rounded-1 d-inline-block text-dark fs-3">
                                                             If I don’t like something, I’ll stay away from it.
                                                         </div>
+                                                        <div>
+                                                            <span class="fw-semibold fs-2 mt-2" style="cursor:pointer; margin-left:30px">reply</span>
+                                                        <span class="fw-semibold fs-2 mt-2" style="cursor:pointer; margin-left:30px">delete this review</span>
+                                                        </div>
+                                                        
 
                                                         <!-- Mục trả lời ở cấp 2 -->
                                                         <div

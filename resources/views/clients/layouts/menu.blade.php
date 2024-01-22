@@ -1,16 +1,16 @@
 <div class="page-wrapper">
     <style>
-        .redercolor{
+        .redercolor {
             background-color: #ececec
         }
     </style>
     <header class="topbar mb-5">
-        <div class="app-header  with-horizontal mb-2" >
-            <nav  class="navbar navbar-expand-lg p-0 fixed-top bg-white">
+        <div class="app-header  with-horizontal mb-2">
+            <nav class="navbar navbar-expand-lg p-0 fixed-top bg-white">
                 <ul class="navbar-nav">
                     <li class="nav-item d-none d-xl-block">
                         <a href="{{ route('client.home') }}" class="text-nowrap nav-link">
-                            <img src="{{ asset('assets/images/logo.png')}}" class="dark-logo" width="180"
+                            <img src="{{ asset('assets/images/logo.png') }}" class="dark-logo" width="180"
                                 alt="" />
                         </a>
                     </li>
@@ -178,13 +178,13 @@
                     <!-- end apps Dropdown -->
                     <!-- ------------------------------- -->
                     <li class="nav-item dropdown-hover d-none d-lg-block">
-                        <a class="nav-link" href="{{route('client.home')}}">Home</a>
+                        <a class="nav-link" href="{{ route('client.home') }}">Home</a>
                     </li>
                     <li class="nav-item dropdown-hover d-none d-lg-block">
-                        <a class="nav-link" href="{{route('client.shop')}}">Shop</a>
+                        <a class="nav-link" href="{{ route('client.shop') }}">Shop</a>
                     </li>
                     <li class="nav-item dropdown-hover d-none d-lg-block">
-                        <a class="nav-link" href="{{route('client.contact')}}">Contact</a>
+                        <a class="nav-link" href="{{ route('client.contact') }}">Contact</a>
                     </li>
                 </ul>
                 <div class="d-block d-xl-none">
@@ -199,7 +199,7 @@
                         <i class="ti ti-dots fs-7"></i>
                     </span>
                 </a>
-                <div class="collapse navbar-collapse justify-content-end "  id="navbarNav">
+                <div class="collapse navbar-collapse justify-content-end " id="navbarNav">
                     <div class="d-flex align-items-center justify-content-between px-0 px-xl-8">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center ">
                             <li class="nav-item">
@@ -207,7 +207,15 @@
                                     data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                                     aria-controls="offcanvasRight">
                                     <i class="ti ti-basket"></i>
-                                    <div class="notification bg-danger rounded-circle"></div>
+                                    @php
+                                        $carts = App\Models\Cart::where('user_id', auth()->user()->id)
+                                            ->where('status', config('default.cart.status.pending'))
+                                            ->count();
+                                    @endphp
+                                    @if($carts > 0)
+                                        <div class="notification bg-danger rounded-circle"></div>
+                                    @endif
+
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
@@ -239,59 +247,44 @@
                                                 </div>
                                             </a>
                                             <a href="javascript:void(0)"
-                                                class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                <span class="me-3">
-                                                    <img src="../assets/images/profile/user-2.jpg" alt="user"
-                                                        class="rounded-circle" width="48" height="48" />
-                                                </span>
-                                                <div class="w-75 d-inline-block v-middle">
-                                                    <h6 class="mb-1 fw-semibold lh-base">New message</h6>
-                                                    <span class="fs-2 d-block text-body-secondary">Salma sent
-                                                        you
-                                                        new message</span>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)"
-                                                class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                <span class="me-3">
-                                                    <img src="../assets/images/profile/user-3.jpg" alt="user"
-                                                        class="rounded-circle" width="48" height="48" />
-                                                </span>
-                                                <div class="w-75 d-inline-block v-middle">
-                                                    <h6 class="mb-1 fw-semibold lh-base">Bianca sent payment
-                                                    </h6>
-                                                    <span class="fs-2 d-block text-body-secondary">Check your
-                                                        earnings</span>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)"
-                                                class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                <span class="me-3">
-                                                    <img src="../assets/images/profile/user-4.jpg" alt="user"
-                                                        class="rounded-circle" width="48" height="48" />
-                                                </span>
-                                                <div class="w-75 d-inline-block v-middle">
-                                                    <h6 class="mb-1 fw-semibold lh-base">Jolly completed tasks
-                                                    </h6>
-                                                    <span class="fs-2 d-block text-body-secondary">Assign her
-                                                        new
-                                                        tasks</span>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)"
-                                                class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                <span class="me-3">
-                                                    <img src="../assets/images/profile/user-5.jpg" alt="user"
-                                                        class="rounded-circle" width="48" height="48" />
-                                                </span>
-                                                <div class="w-75 d-inline-block v-middle">
-                                                    <h6 class="mb-1 fw-semibold lh-base">John received payment
-                                                    </h6>
-                                                    <span class="fs-2 d-block text-body-secondary">$230
-                                                        deducted
-                                                        from account</span>
-                                                </div>
-                                            </a>
+                                            class="py-6 px-7 d-flex align-items-center dropdown-item">
+                                            <span class="me-3">
+                                                <img src="../assets/images/profile/user-1.jpg" alt="user"
+                                                    class="rounded-circle" width="48" height="48" />
+                                            </span>
+                                            <div class="w-75 d-inline-block v-middle">
+                                                <h6 class="mb-1 fw-semibold lh-base">Roman Joined the Team!
+                                                </h6>
+                                                <span class="fs-2 d-block text-body-secondary">Congratulate
+                                                    him</span>
+                                            </div>
+                                        </a>                                        
+                                        <a href="javascript:void(0)"
+                                        class="py-6 px-7 d-flex align-items-center dropdown-item">
+                                        <span class="me-3">
+                                            <img src="../assets/images/profile/user-1.jpg" alt="user"
+                                                class="rounded-circle" width="48" height="48" />
+                                        </span>
+                                        <div class="w-75 d-inline-block v-middle">
+                                            <h6 class="mb-1 fw-semibold lh-base">Roman Joined the Team!
+                                            </h6>
+                                            <span class="fs-2 d-block text-body-secondary">Congratulate
+                                                him</span>
+                                        </div>
+                                    </a>
+                                    <a href="javascript:void(0)"
+                                    class="py-6 px-7 d-flex align-items-center dropdown-item">
+                                    <span class="me-3">
+                                        <img src="../assets/images/profile/user-1.jpg" alt="user"
+                                            class="rounded-circle" width="48" height="48" />
+                                    </span>
+                                    <div class="w-75 d-inline-block v-middle">
+                                        <h6 class="mb-1 fw-semibold lh-base">Roman Joined the Team!
+                                        </h6>
+                                        <span class="fs-2 d-block text-body-secondary">Congratulate
+                                            him</span>
+                                    </div>
+                                </a>
                                             <a href="javascript:void(0)"
                                                 class="py-6 px-7 d-flex align-items-center dropdown-item">
                                                 <span class="me-3">
@@ -317,25 +310,26 @@
                                 <div class="d-flex justify-content-center">
                                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        @if(auth()->user()->avatar)
-                                        <img src="{{ Storage::disk('minio')->url(auth()->user()->avatar) }}"
-                                            alt="userImage" class="rounded-circle" width="40" height="40">
+                                        @if (auth()->user()->avatar)
+                                            <img src="{{ Storage::disk('minio')->url(auth()->user()->avatar) }}"
+                                                alt="userImage" class="rounded-circle" width="40"
+                                                height="40">
                                         @else
-                                        <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
-                                            width="35" height="35" class="rounded-circle">
+                                            <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
+                                                width="35" height="35" class="rounded-circle">
                                         @endif
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
                                         aria-labelledby="drop2">
                                         <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                                            @if(auth()->user()->avatar)
-                                            <img src="{{ Storage::disk('minio')->url(auth()->user()->avatar) }}"
-                                            class="rounded-circle" width="80" height="80"
-                                            alt="" />
+                                            @if (auth()->user()->avatar)
+                                                <img src="{{ Storage::disk('minio')->url(auth()->user()->avatar) }}"
+                                                    class="rounded-circle" width="80" height="80"
+                                                    alt="" />
                                             @else
-                                            <img src="{{ asset('assets/images/profile/user-1.jpg') }}"
-                                                class="rounded-circle" width="80" height="80"
-                                                alt="" />
+                                                <img src="{{ asset('assets/images/profile/user-1.jpg') }}"
+                                                    class="rounded-circle" width="80" height="80"
+                                                    alt="" />
                                             @endif
                                             <div class="ms-3">
                                                 <h5 class="mb-1 fs-3">
@@ -347,17 +341,6 @@
                                             </div>
                                         </div>
                                         <div class="message-body">
-                                            <a href="{{route('client.profile')}}" class="py-8 px-7 mt-8 d-flex align-items-center">
-                                                <span
-                                                    class="d-flex align-items-center justify-content-center text-bg-primary rounded-1 p-6">
-                                                    <i class="ti ti-user fs-4"></i>
-                                                </span>
-                                                <div class="w-75 d-inline-block v-middle ps-3">
-                                                    <h6 class="mb-1 fs-3 fw-semibold lh-base">My Profile</h6>
-                                                    <span class="fs-2 d-block text-body-secondary">Account
-                                                        Settings</span>
-                                                </div>
-                                            </a>
                                             @if (auth()->user()->role == 'admin')
                                                 <a href="{{ route('admin.dashboard') }}"
                                                     class="py-8 px-7 mt-8 d-flex align-items-center">
@@ -372,6 +355,30 @@
                                                     </div>
                                                 </a>
                                             @endif
+                                            <a href="{{ route('client.profile') }}"
+                                                class="py-8 px-7 mt-8 d-flex align-items-center">
+                                                <span
+                                                    class="d-flex align-items-center justify-content-center text-bg-primary rounded-1 p-6">
+                                                    <i class="ti ti-user fs-4"></i>
+                                                </span>
+                                                <div class="w-75 d-inline-block v-middle ps-3">
+                                                    <h6 class="mb-1 fs-3 fw-semibold lh-base">My Profile</h6>
+                                                    <span class="fs-2 d-block text-body-secondary">Account
+                                                        Settings</span>
+                                                </div>
+                                            </a>
+                                            <a href="{{ route('client.cart') }}"
+                                                class="py-8 px-7 mt-8 d-flex align-items-center">
+                                                <span
+                                                    class="d-flex align-items-center justify-content-center text-bg-primary rounded-1 p-6">
+                                                    <i class="ti ti-shopping-cart fs-4"></i>
+                                                </span>
+                                                <div class="w-75 d-inline-block v-middle ps-3">
+                                                    <h6 class="mb-1 fs-3 fw-semibold lh-base">My Shopping Cart</h6>
+                                                    <span class="fs-2 d-block text-body-secondary">Management your
+                                                        Cart</span>
+                                                </div>
+                                            </a>
                                             <a href="{{ route('client.logout') }}"
                                                 class="btn btn-outline-primary mx-3 mt-2 d-block"><i
                                                     class="ti ti-logout"></i> Logout</a>
