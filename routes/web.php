@@ -88,6 +88,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [ClientProductController::class, 'shop'])->name('client.shop');
         Route::get('/search', [ClientProductController::class, 'search'])->name('client.shop.search');
         Route::get('/filter/{item}', [ClientProductController::class, 'filter'])->name('client.shop.filter');
+      
     });
     Route::prefix('cart')->group(function(){
         Route::get('/', [ClientCartController::class, 'cart'])->name('client.cart');
@@ -96,6 +97,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete/{cart}', [ClientCartController::class, 'deleteCart'])->name('client.cart.delete');
     });
     Route::get('/checkout', [ClientSideController::class, 'checkout'])->name('client.checkout');
+    Route::post('checkout/save-infor', [ClientProductController::class, 'saveInfor'])->name('client.saveInfor');
+    Route::post('checkout/order', [ClientProductController::class, 'order'])->name('client.order');
     Route::get('/product-detail/{product}', [ClientProductController::class, 'productDetail'])->name('client.product.detail');
     Route::get('/contact', [ClientSideController::class, 'contact'])->name('client.contact');
     Route::match(['get','put'],'/profile', [ClientSideController::class, 'profile'])->name('client.profile');

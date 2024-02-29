@@ -17,17 +17,11 @@
     </style>
     <div class="body-wrapper">
         <div class="container-fluid">
-            <div class="row justify-content-between">
-                <div class="col-lg-3 card stickyscroll">
+            <div class="row justify-content-between ">
+                <div class="col-lg-3 card stickyscroll ">
                     <div class="shop-filters flex-shrink-0 d-none d-lg-block">
                         <ul class="list-group pt-2 border-bottom rounded-0">
                             <h6 class="my-3 mx-4 fw-semibold">Filter by Category</h6>
-                            <li class="list-group-item border-0 p-0 mx-4 mb-2">
-                                <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-6 rounded-1"
-                                    href="{{ route('client.shop.filter', ['item' => 'all']) }}"><i
-                                        class="ti ti-circles fs-5"></i>All
-                                </a>
-                            </li>
                             <li class="list-group-item border-0 p-0 mx-4 mb-2">
                                 <form action="{{ route('client.shop.filter', ['item' => 'category']) }}" method="get">
                                     @csrf
@@ -176,12 +170,6 @@
                                 <div class="offcanvas-body shop-filters w-100 p-0">
                                     <ul class="list-group pt-2 border-bottom rounded-0">
                                         <h6 class="my-3 mx-4 fw-semibold">Filter by Category</h6>
-                                        <li class="list-group-item border-0 p-0 mx-4 mb-2">
-                                            <a class="d-flex align-items-center gap-2 list-group-item-action text-dark px-3 py-6 rounded-1"
-                                                href="{{ route('client.shop.filter', ['item' => 'all']) }}"><i
-                                                    class="ti ti-circles fs-5"></i>All
-                                            </a>
-                                        </li>
                                         <li class="list-group-item border-0 p-0 mx-4 mb-2">
                                             <form  action="{{ route('client.shop.filter', ['item' => 'category']) }}"
                                                 method="get">

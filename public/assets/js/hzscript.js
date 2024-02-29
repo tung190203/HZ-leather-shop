@@ -179,3 +179,61 @@ function updatePriceDisplay(value, elementId, filterFormId) {
 function formatValue(value) {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
+//step wizard ***checkout***
+function nextStep(button) {
+    var currentStep = button.closest('.step').getAttribute('data-step');
+    if (currentStep < 3) {
+        document.querySelector('.step[data-step="' + currentStep + '"]').style.display = "none";
+        currentStep++;
+        document.querySelector('.step[data-step="' + currentStep + '"]').style.display = "block";
+    }
+}
+
+function prevStep(button) {
+    var currentStep = button.closest('.step').getAttribute('data-step');
+    if (currentStep > 1) {
+        document.querySelector('.step[data-step="' + currentStep + '"]').style.display = "none";
+        currentStep--;
+        document.querySelector('.step[data-step="' + currentStep + '"]').style.display = "block";
+    }
+}
+//add to cart ***product detail***
+function combineInputs() {
+    var address1Value = document.getElementById('address1').value;
+    var address2Value = document.getElementById('address2').value;
+    // Gộp giá trị
+    var combinedResult = address1Value + ',' + address2Value;
+    // Đặt giá trị cho ô input thứ 3
+    document.getElementById('result').value = combinedResult;
+}
+function saveInfor() {
+    var first_name = document.getElementById('first_name').value;
+    var last_name = document.getElementById('last_name').value;
+    var phone = document.getElementById('phone').value;
+    var address = document.getElementById('result').value;
+    var fullName = document.getElementById('fullNameChecker');
+    var addressChecker = document.getElementById('addressChecker');
+    fullName.innerHTML = first_name + ' ' + last_name;
+    addressChecker.innerHTML = address;
+    var requestData = {
+        first_name: first_name,
+        last_name: last_name,
+        phone: phone,
+        address: address,
+    };
+    axios.post('/checkout/save-infor', requestData)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
+}
+function backToHome() {
+    window.location.href = '/';
+}
+
+
+
+
+

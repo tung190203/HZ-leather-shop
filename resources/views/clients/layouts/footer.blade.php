@@ -78,4 +78,7 @@
  <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
  <script src="{{ asset('assets/js/dashboards/dashboard.js') }}"></script>
  <script src="{{ asset('assets/libs/swiper/swiper-bundle.min.js') }}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
  <script src="{{ asset('assets/js/hzscript.js') }}"></script>
+
+
